@@ -20,7 +20,7 @@ jobs:
 
       - name: Preparing signing material
         env:
-          keystore: ${{ secrets.keystore }}
+  
           playstore_json: ${{ secrets.PLAYSTORE_JSON }}
         run: |
           echo "$playstore_json" > kiwix-android/playstore.json
@@ -30,10 +30,6 @@ jobs:
         run: echo "TAG=$(echo ${GITHUB_REF:10})" >> $GITHUB_ENV
 
       - name: Publishing app to Google Play
-        env:
-          KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
-          KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
-          KEY_STORE_PASSWORD: ${{ secrets.KEY_STORE_PASSWORD }}
         run: |
           cd kiwix-android
           eval "./gradlew publish${TAG^}ReleaseApkWithExpansionFile"
